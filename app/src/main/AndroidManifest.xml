@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="yss.com.myrongappication">
+
+    <application
+        android:name=".fast.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.MainActivity">
+
+        </activity>
+        <!--登录页面-->
+        <activity
+            android:name=".fast.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".fast.activity.MainActivity"
+            android:screenOrientation="portrait"></activity>
+        　<!--联系人页面-->
+        <activity android:name=".fast.activity.ContactsActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--会话页面-->
+        <activity
+            android:name="yss.com.myrongappication.fast.activity.ConversationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="yss.com.myrongappication"
+                    android:pathPrefix="/conversation/"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+        <!--会话页面－测试代码，看 README 注释-->
+        <activity
+            android:name=".fast.test.conversation.ConversationDynamicActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.VIEW" />-->
+
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
+
+            <!--<data-->
+            <!--android:host="io.rong.fast"-->
+            <!--android:pathPrefix="/conversation/"-->
+            <!--android:scheme="rong" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+
+
+        <!--会话列表-->
+        <activity
+            android:name=".fast.activity.ConversationListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="yss.com.myrongappication"
+                    android:pathPrefix="/conversationlist"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+
+        <!--会话列表－测试代码，看 README 注释-->
+        <activity
+            android:name=".fast.test.conversationlist.ConversationListDynamicActivtiy"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.VIEW" />-->
+
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
+
+            <!--<data-->
+            <!--android:host="io.rong.fast"-->
+            <!--android:pathPrefix="/conversationlist"-->
+            <!--android:scheme="rong" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <!--聚合会话列表-->
+        <activity
+            android:name=".fast.activity.SubConversationListActivtiy"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="yss.com.myrongappication"
+                    android:pathPrefix="/subconversationlist"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+        <!--聚合会话列表 －测试代码，看 README 注释-->
+        <activity
+            android:name=".fast.test.subconversationlist.SubConversationListDynamicActivtiy"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.VIEW" />-->
+
+            <!--<category android:name="android.intent.category.DEFAULT" />-->
+
+            <!--<data-->
+            <!--android:host="io.rong.fast"-->
+            <!--android:pathPrefix="/subconversationlist"-->
+            <!--android:scheme="rong" />-->
+            <!--</intent-filter>-->
+        </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+
+    </application>
+
+</manifest>
