@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,7 +27,7 @@ public class ContactsActivity extends Activity implements AdapterView.OnItemClic
     private ContactsAdapter mAdapter;
     private TextView mTitle;
     private RelativeLayout mBack;
-    private TextView mSet;
+    private ImageView mSet;
     /**
      * ids 收消息人的 id
      */
@@ -41,9 +42,9 @@ public class ContactsActivity extends Activity implements AdapterView.OnItemClic
         mListView = (ListView) findViewById(R.id.list);
         mTitle = (TextView) findViewById(R.id.txt1);
         mBack = (RelativeLayout) findViewById(R.id.back);
-        mSet = (TextView) findViewById(R.id.img3);
+        mSet = (ImageView) findViewById(R.id.img3);
 
-        mSet.setText("创建讨论组");
+        //mSet.setText("创建讨论组");
 
         mAdapter = new ContactsAdapter(ContactsActivity.this, ids);
         mListView.setAdapter(mAdapter);

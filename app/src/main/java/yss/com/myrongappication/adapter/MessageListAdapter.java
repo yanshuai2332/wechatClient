@@ -54,7 +54,7 @@ public class MessageListAdapter extends BaseAdapter {
             new ViewHolder(convertView);
         }
         final ViewHolder holder = (ViewHolder) convertView.getTag();
-        holder.nameItemRongTV.setText(getItem(position).getFriendId());
+        holder.nameItemRongTV.setText(getItem(position).getNickName());
         //查询最后一条消息
 //        RongIM.getInstance().getLatestMessages(Conversation.ConversationType.PRIVATE, getItem(position).getFriendId(), 1, new RongIMClient.ResultCallback<List<Message>>() {
 //            @Override

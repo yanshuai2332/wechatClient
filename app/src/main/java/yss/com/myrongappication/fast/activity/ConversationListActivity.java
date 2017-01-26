@@ -12,6 +12,7 @@ import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
 import yss.com.myrongappication.R;
 import yss.com.myrongappication.fast.App;
 import yss.com.myrongappication.fast.DemoContext;
@@ -20,7 +21,7 @@ import yss.com.myrongappication.fast.DemoContext;
  * Created by Bob on 15/8/18.
  * 会话列表
  */
-public class ConversationListActivity extends FragmentActivity {
+public class ConversationListActivity extends FragmentActivity implements RongIM.UserInfoProvider{
 
     private TextView mTitle;
     private RelativeLayout mBack;
@@ -29,9 +30,8 @@ public class ConversationListActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conversationlist);
-
+        RongIM.setUserInfoProvider(this,false);
         setActionBarTitle();
-
         isReconnect();
     }
 
@@ -51,6 +51,7 @@ public class ConversationListActivity extends FragmentActivity {
                 .build();
 
         fragment.setUri(uri);
+        RongIM.setUserInfoProvider(this,false);
     }
 
     /**
@@ -132,5 +133,10 @@ public class ConversationListActivity extends FragmentActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public UserInfo getUserInfo(String s) {
+        return new UserInfo("201605","颜帅",Uri.parse("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2157537042,3590938171&fm=116&gp=0.jpg"));
     }
 }

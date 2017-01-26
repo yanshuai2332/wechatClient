@@ -28,12 +28,40 @@
             android:textColor="#776868"
             android:textSize="14sp"/>
     </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_below="@id/rc_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#4e4e4e">
+        <TextView
+            android:id="@+id/txt1"
+            android:layout_marginLeft="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="微信"
+            android:textSize="20sp"
+            android:textColor="#ffffff" />
 
+        <ImageView
+            android:id="@+id/img3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:padding="16dp"
+
+            android:background="@drawable/add"
+            android:textColor="#e4e4e4" />
+
+    </RelativeLayout>
     <ListView
         android:id="@id/rc_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rc_status_bar"
+        android:layout_below="@+id/rl"
         android:divider="@color/rc_conversation_list_divider_color"
         android:dividerHeight="0.5dp"
         android:background="@color/rc_text_color_primary_inverse" />

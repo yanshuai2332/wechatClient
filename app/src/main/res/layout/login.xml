@@ -1,39 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e4e4e4"
-    android:orientation="vertical">
+    android:background="@drawable/login_bg"
+    >
 
-    <TextView
+
+    <ImageView
+        android:id="@+id/cube_icon"
+        android:layout_marginTop="172dp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/cube"/>
+    <RelativeLayout
+        android:id="@+id/emailRL"
+        android:layout_below="@id/cube_icon"
+        android:layout_marginTop="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/login_edit_bg">
+        <ImageView
+            android:id="@+id/inputEmailLableIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/account"/>
+    <EditText
+        android:id="@+id/userNameLoginET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:text="简单集成demo，用户账号用的是一个" />
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/inputEmailLableIV"
+        android:textColor="#ffffff"
+        android:layout_marginLeft="8dp"
+        android:textSize="16sp"
+        android:hint="Username"
+        android:textColorHint="#dcffffff"
+         />
+    </RelativeLayout>
 
-
-    <EditText
-        android:id="@+id/et1"
-        android:layout_width="320dp"
-        android:layout_gravity="center_horizontal"
+    <RelativeLayout
+        android:id="@+id/passwordRL"
+        android:layout_below="@id/emailRL"
         android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="admin01" />
-
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/login_edit_bg">
+    <ImageView
+        android:id="@+id/inputPasswordLableIV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/password_icon"/>
     <EditText
-        android:id="@+id/et2"
-        android:layout_width="320dp"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
+        android:id="@+id/passwordLoginET"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="123456" />
-
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/inputPasswordLableIV"
+        android:layout_marginLeft="8dp"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColorHint="#dcffffff"
+         />
+</RelativeLayout>
     <Button
         android:id="@+id/bt1"
-        android:layout_width="180dp"
-        android:layout_marginTop="15dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/passwordRL"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="登录" />
-
-</LinearLayout>
+        android:paddingLeft="72dp"
+        android:paddingRight="72dp"
+        android:layout_marginTop="18dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/login_button_selector"
+        android:textSize="16sp"
+        android:textColor="#ffffff"
+        android:text="Sign in" />
+<TextView
+    android:id="@+id/registTV"
+    android:layout_below="@id/bt1"
+    android:padding="8dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:text="Account registration"
+    android:textSize="12sp"
+    android:textColor="#ffffff"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:textSize="10sp"
+        android:text="copy版权所有 YY设计"/>
+</RelativeLayout>

@@ -81,4 +81,17 @@
         <attr name="kswTextOff" format="string"/>
         <attr name="kswTextMarginH" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="SideBarView">
+        <attr name="sidebar_nor_background" format="color"/>
+        <attr name="sidebar_press_background" format="color"/>
+        <attr name="sidebar_text_size" format="dimension"/>
+        <attr name="sidebar_text_color_nor" format="color"/>
+        <attr name="sidebar_text_color_press" format="color"/>
+    </declare-styleable>
+    <declare-styleable name="SWBar">
+        <attr name="barTitle" format="string"></attr>
+        <attr name="backView" format="integer"></attr>
+        <attr name="titleColor" format="color"></attr>
+    </declare-styleable>
 </resources>

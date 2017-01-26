@@ -4,7 +4,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/actionbar" />
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#4e4e4e">
+        <TextView
+            android:id="@+id/txt1"
+            android:layout_toRightOf="@id/img1"
+            android:layout_marginLeft="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="微信"
+            android:textSize="20sp"
+            android:textColor="#e4e4e4" />
+
+        <ImageView
+            android:id="@+id/img3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="24dp"
+            android:padding="16dp"
+
+            android:background="@drawable/add"
+            android:textColor="#e4e4e4" />
+
+    </RelativeLayout>
 
     <fragment
         android:id="@+id/conversationlist"

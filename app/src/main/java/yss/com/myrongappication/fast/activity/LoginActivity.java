@@ -1,17 +1,22 @@
 package yss.com.myrongappication.fast.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.util.Map;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import retrofit2.Call;
@@ -19,12 +24,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import yss.com.myrongappication.R;
 import yss.com.myrongappication.activity.MainActivity;
+import yss.com.myrongappication.activity.RegistActivity;
 import yss.com.myrongappication.fast.App;
 import yss.com.myrongappication.http.Api;
-import yss.com.myrongappication.preference.OpenIdDao;
+import yss.com.myrongappication.preference.AccessTokenDao;
+import yss.com.myrongappication.preference.PhoneDao;
+import yss.com.myrongappication.preference.PortraitDao;
+import yss.com.myrongappication.preference.UserIdDao;
 import yss.com.myrongappication.resp.LoginInfo;
+import yss.com.myrongappication.util.StringUtil;
 
-import static android.os.Build.VERSION_CODES.M;
 
 /**
  * Created by Bob on 15/8/19.
@@ -34,12 +43,15 @@ import static android.os.Build.VERSION_CODES.M;
  */
 public class LoginActivity extends Activity {
 
-    @BindView(R.id.et1)
-    EditText et1;
-    @BindView(R.id.et2)
-    EditText et2;
+
     @BindView(R.id.bt1)
     Button bt1;
+    @BindView(R.id.registTV)
+    TextView registTV;
+    @BindView(R.id.userNameLoginET)
+    EditText userNameLoginET;
+    @BindView(R.id.passwordLoginET)
+    EditText passwordLoginET;
     /**
      * token 的主要作用是身份授权和安全，因此不能通过客户端直接访问融云服务器获取 token，
      * 您必须通过 Server API 从融云服务器 获取 token 返回给您的 App，并在之后连接时使用
@@ -49,8 +61,23 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+            window.setNavigationBarColor(Color.TRANSPARENT);
+        }
         setContentView(R.layout.login);
         ButterKnife.bind(this);
+
+        if (StringUtil.isNotEmpty(UserIdDao.getUserId(this))) {
+            connect(AccessTokenDao.getAccessToken(this));
+        }
         bt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,11 +90,14 @@ public class LoginActivity extends Activity {
      * 用户登录，用户登录成功，获得 cookie，将cookie 保存
      */
     private void login() {
-        Api.getApi(this).login(et1.getText().toString(), et2.getText().toString()).enqueue(new Callback<LoginInfo>() {
+        Api.getApi(this).login(userNameLoginET.getText().toString(), passwordLoginET.getText().toString()).enqueue(new Callback<LoginInfo>() {
             @Override
             public void onResponse(Call<LoginInfo> call, Response<LoginInfo> response) {
-                LoginInfo loginInfo= response.body();
-                OpenIdDao.setOpenId(getApplicationContext(),loginInfo.getLoginInfo().getOpenId());
+                LoginInfo loginInfo = response.body();
+                PhoneDao.setPhone(getApplicationContext(), loginInfo.getLoginInfo().getPhone());
+                UserIdDao.setUserId(getApplicationContext(), loginInfo.getLoginInfo().getId());
+                PortraitDao.setPortrait(getApplicationContext(), loginInfo.getLoginInfo().getPortrait());
+                AccessTokenDao.setAccessToken(getApplicationContext(),loginInfo.getToken());
                 connect(loginInfo.getToken());
             }
 
@@ -124,5 +154,17 @@ public class LoginActivity extends Activity {
                 }
             });
         }
+    }
+
+    @OnClick(R.id.registTV)
+    public void regist() {
+        RegistActivity.startActivity(this);
+    }
+
+    public static void startActivity(Context context) {
+
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+
     }
 }

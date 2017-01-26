@@ -8,9 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
 import yss.com.myrongappication.R;
+import yss.com.myrongappication.util.DemoContext;
 
 /**
  * Created by Administrator on 2016-11-18.
@@ -31,11 +34,20 @@ public class ConversationListDynamicFragment extends Fragment {
                 .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "false")//设置系统会话非聚合显示
                 .build();
         fragment.setUri(uri);
-
-
+        fragment.getAdapter();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.rong_content, fragment);
+        //RongIM.setUserInfoProvider(this,false);
         transaction.commit();
         return view;
     }
+
+//    @Override
+//    public UserInfo getUserInfo(String s) {
+//        if (DemoContext.getInstance() == null)
+//            return null;
+//        return DemoContext.getInstance().getUserInfoByUserId(s);
+//        //return new UserInfo("a0bddfe9-abc9-11e6-8424-408d5c7878fd","颜帅",Uri.parse("https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2157537042,3590938171&fm=116&gp=0.jpg"));
+//
+//    }
 }

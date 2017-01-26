@@ -26,6 +26,6 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return fragmetList.get(position);
+        return fragmetList == null || position < 0 || position > fragmetList.size() ? null : fragmetList.get(position);
     }
 }

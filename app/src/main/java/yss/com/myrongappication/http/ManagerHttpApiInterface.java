@@ -2,17 +2,25 @@ package yss.com.myrongappication.http;
 
 
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
+import yss.com.myrongappication.friendcircle.friendcircledemo.bean.CircleBean;
 import yss.com.myrongappication.resp.FriendsList;
 import yss.com.myrongappication.resp.LoginInfo;
+import yss.com.myrongappication.resp.UserInfoVo;
 
 
 /**
@@ -31,34 +39,56 @@ public interface ManagerHttpApiInterface {
 
     //注册
     @FormUrlEncoded
-    @POST("/serving/register")
-    Call<String> register(@Field("phone") String phone, @Field("pass") String pass, @Field("vcode") String vcode);
+    @POST("/mybatiseproject/user/regist")
+    Call<Map> register(@Field("userName") String userName, @Field("phone") String phone, @Field("password") String password);
 
-    //重置密码，获取验证码
-    @GET("/serving/reset")
-    Call<String> resetvcode(@Query("phone") String phone);
+    //获取好友列表
+    @GET("/mybatiseproject/user/applyFriends")
+    Call<List<FriendsList>> applyFriendsList(@Query("userId") String userId);
 
-    //重置密码
-    @PUT("/serving/reset")
-    Call<String> reset(@Query("phone") String phone, @Query("pass") String pass, @Query("vcode") String vcode);
+    //添加好友
+    @POST("/mybatiseproject/user/addFriend")
+    Call<Map> addFriend(@Query("userId") String userId, @Query("friendId") String friendId);
 
-    //根据报修Id查询报修详情
-    @GET("/serving/property/repair/detail")
-    Call<String> queryMyFinishedRepairDetail(@Query("access_token") String access_token, @Query("id") String id);
+    //同意好友申请
+    @PUT("/mybatiseproject/user/agreeApply")
+    Call<Map> agreeFriendsApply(@Query("userId") String userId, @Query("friendId") String friendId);
+
+    //根据条件查找用户
+    @GET("/mybatiseproject/user/searchFriends")
+    Call<List<UserInfoVo>> searchFriends(@Query("userId") String userId, @Query("searchKey") String searchKey);
+
+    //更新资料
+    @Multipart
+    @POST("/mybatiseproject/user/updateUserInfo")
+    Call<Map> updateUserInfo(@Part MultipartBody.Part portrait, @Query("id") String id, @Query("nickName") String nickName, @Query("sex") String sex);
+
+    //获取用户资料
+    @GET("/mybatiseproject/user/getUserInfo")
+    Call<UserInfoVo> getUserInfo(@Query("id") String id);
+
+    //发布圈子
+    @Multipart
+    @POST("/mybatiseproject/circle/publishCircle")
+    Call<Map> publishCircle(@Query("userId") String userId, @Query("dynamicContent") String dynamicContent,
+                            @Part List<MultipartBody.Part> imgList);
+    //获取圈子列表
+    @GET("/mybatiseproject/circle/getCircleList")
+    Call<List<CircleBean>> getCircleList(@Query("userId") String userId);
     /**
      * 物业首页数据查询
      *
      * @param accessToken
      */
     @GET("/serving/property")
-    Call<String> propertyQuery(@Query("access_token") String accessToken);
+    Call<CircleBean> propertyQuery(@Query("access_token") String accessToken);
 
     /**
      * 获取维修列表的接口
      *
-     * @param status   状态 0 新发生 1是处理中 2是已完成
-     * @param start    起始条目数
-     * @param num      每页的数量
+     * @param status 状态 0 新发生 1是处理中 2是已完成
+     * @param start  起始条目数
+     * @param num    每页的数量
      */
     @GET("/serving/property/repair")
     Call<String> selectRepairByState(@Query("access_token") String access_token, @Query("pid") String propertyId, @Query("status") String status, @Query("start") int start, @Query("num") int num);
@@ -68,26 +98,29 @@ public interface ManagerHttpApiInterface {
     Call<String> queryNoticeList(@Query("access_token") String access_token, @Query("id") String id, @Query("start") int start, @Query("num") int num);
 
     /**
-     *发布通知
+     * 发布通知
+     *
      * @param access_token
      * @param title
      * @param content
      * @param items
-     *
      */
     @FormUrlEncoded
     @POST("/serving/notice")
     Call<String> postNotice(@Field("access_token") String access_token, @Field("teamId") String teamId, @Field("title") String title, @Field("content") String content, @Field("items[]") String[] items);
+
     //更新用户信息
     @POST("/serving/setting")
     @FormUrlEncoded
     Call<String> userSetting(@Query("access_token") String access_Token, @Field("name") String name, @Field("description") String description, @Field("gender") String gender, @Field("portrait") String portrait);
+
     //获取用户信息
     @GET("/serving/setting")
     Call<String> userGetting(@Query("access_token") String access_token);
 
     /**
      * 3.状态设置
+     *
      * @param access_token
      * @param type
      */
@@ -100,6 +133,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 1.添加团队
+     *
      * @param access_token
      * @param name
      * @param phone
@@ -109,8 +143,10 @@ public interface ManagerHttpApiInterface {
     @FormUrlEncoded
     @POST("/serving/teams")
     Call<String> createTeam(@Field("access_token") String access_token, @Field("name") String name, @Field("phone") String phone, @Field("address") String address, @Field("type") String type);
+
     /**
      * 添加项目
+     *
      * @param access_token
      * @param name
      * @param teamId
@@ -122,6 +158,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 将注册用户加入团队
+     *
      * @param access_token
      * @param memberId
      * @param teamId
@@ -132,6 +169,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 2.批量添加项目成员
+     *
      * @param access_token
      * @param members
      * @param itemId
@@ -141,6 +179,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 3.删离成员从项目组
+     *
      * @param access_token
      * @param memberId
      * @param itemId
@@ -150,6 +189,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 查询项目列表
+     *
      * @param access_token
      */
     @GET("/serving/items")
@@ -157,6 +197,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 4.查询项目详情
+     *
      * @param access_token
      * @param itemId
      */
@@ -165,6 +206,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 3获取团队成员
+     *
      * @param access_token
      * @param teamId
      */
@@ -174,6 +216,7 @@ public interface ManagerHttpApiInterface {
     /**
      * 团队管理
      * 4.根据手机号获取用户信息
+     *
      * @param access_token
      * @param searchString
      * @param
@@ -183,6 +226,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 2.删离团队
+     *
      * @param access_token
      * @param memberId
      * @param teamId
@@ -192,6 +236,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 6.模糊搜索团队成员 从项目详情页进行跳转查询的
+     *
      * @param access_token
      * @param teamId
      * @param searchString
@@ -202,6 +247,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 选择社区
+     *
      * @param access_token
      * @param cmyName
      */
@@ -210,6 +256,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 20.确认接收维修申请订单
+     *
      * @param access_token
      * @param id
      */
@@ -218,6 +265,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 1.绑定
+     *
      * @param access_token
      * @param pushId
      */
@@ -227,6 +275,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 2.解绑
+     *
      * @param access_token
      * @param pushId
      */
@@ -235,6 +284,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 17.根据物业公司id查询不同状态下的报修列表
+     *
      * @param access_token
      * @param propertyId
      * @param status
@@ -246,6 +296,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 19.根据id查询报修详情(管理人员)
+     *
      * @param access_token
      * @param id
      */
@@ -254,6 +305,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 查询投诉列表
+     *
      * @param access_token
      * @param status
      * @param start
@@ -264,6 +316,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 18.根据id查询投诉建议详情
+     *
      * @param access_token
      * @param id
      */
@@ -272,6 +325,7 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 21.确认授理投诉建议
+     *
      * @param access_token
      * @param id
      */
@@ -280,13 +334,12 @@ public interface ManagerHttpApiInterface {
 
     /**
      * 11.查询通知详情
+     *
      * @param access_token
      * @param id
      */
     @GET("/serving/notice/detail")
     Call<String> getNoticeDetailInfo(@Query("access_token") String access_token, @Query("id") String id);
-
-
 
 
 }

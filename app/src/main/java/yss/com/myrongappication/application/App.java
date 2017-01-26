@@ -2,6 +2,7 @@ package yss.com.myrongappication.application;
 
 import android.app.Application;
 
+import cn.jpush.android.api.JPushInterface;
 import io.rong.imkit.RongIM;
 
 /**
@@ -17,5 +18,7 @@ public class App extends Application {
          * 初始化融云
          */
         RongIM.init(this);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include layout="@layout/title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30px" >
+
+        <EditText
+            android:id="@+id/et_input"
+            android:layout_width="match_parent"
+            android:layout_height="400px"
+            android:layout_marginTop="20px"
+            android:background="@drawable/bg_edittext"
+            android:gravity="top"
+            android:hint="说点什么吧~"
+            android:padding="10px"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/et_input"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10px"
+            android:visibility="gone" />
+
+        <yss.com.myrongappication.friendcircle.friendcircledemo.view.NoScrollGridView
+            android:id="@+id/gv_gridview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_input"
+            android:layout_marginLeft="5dp"
+            android:horizontalSpacing="3dp"
+            android:numColumns="4"
+            android:layout_marginTop="15dp"
+            android:scrollbars="none"
+            android:verticalSpacing="5dp" >
+        </yss.com.myrongappication.friendcircle.friendcircledemo.view.NoScrollGridView>
+
+        <Button
+            android:id="@+id/btn_send_circle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/selector_btn_black"
+            android:text="发送"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+</LinearLayout>
